@@ -1,5 +1,8 @@
 // This file is contains our main() routine which determines where our 
 // program execution begins and ends.
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <iostream>
 #include "MainMenu.h"
 //#include "TestSuite.h"
@@ -8,7 +11,8 @@
 // Display a menu allowing a user various choices, and process those choices
 // Clean up any dynamically allocated memory before finishing
 int main()
-{	
+{
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	// a pointer to our linked list of employees.
 	Employee* pEmployees = nullptr;
 
