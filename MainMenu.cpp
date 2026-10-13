@@ -154,8 +154,11 @@ Employee* createEmployee(std::string name)
 // - param 2: a string - the employee's name.
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-//addNewEmployee(Employee*& pHead);
-
+void addNewEmployee(Employee*& pHead, std::string name)
+{
+	Employee* emp = createEmployee(name);
+	emp->pNext = pHead;
+}
 
 // Search through the list for a node with the given id.  
 // Tip: Use a pointer to iterate through the linked list and another
