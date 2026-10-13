@@ -73,14 +73,14 @@ void handleMenuInput(Employee*& pHead, Command command)
 	{
 	case Command::viewEmployees:
 		std::cout << ">> View Employees:\n";
-		//viewEmployees(pHead);
+		viewEmployees(pHead);
 		break;
 	case Command::addEmployee: {
 		std::cout << ">> Add Employee:\n";
 		std::cout << "Enter name:";
 		std::string name;
 		std::getline(std::cin, name);
-		//addNewEmployee(pHead, name);
+		addNewEmployee(pHead, name);
 	}
 							 break;
 	case Command::removeEmployee:
@@ -116,13 +116,23 @@ void handleMenuInput(Employee*& pHead, Command command)
 //			 of the list of employees.
 // return: nothing
 // TODO ------------------------------------------------------------------------
-//void viewEmployees(Employee* pHead)
-//{
-//	if (pHead == NULL)
-//	{
-//
-//	}
-//}
+void viewEmployees(Employee* pHead)
+{
+	if (pHead == nullptr)
+	{
+		std::cout << "empty list.\n";
+	}
+	else
+	{
+		Employee* current = pHead;
+		while (current != nullptr)
+		{
+			std::cout << "[id: " << current->id << ", name: " << current->name << "]\n";
+			current = current->pNext;
+		}
+	}
+
+}
 
 
 // Create a new employee struct on the heap.
@@ -156,8 +166,10 @@ Employee* createEmployee(std::string name)
 // TODO ------------------------------------------------------------------------
 void addNewEmployee(Employee*& pHead, std::string name)
 {
-	Employee* emp = createEmployee(name);
-	emp->pNext = pHead;
+	Employee* pEmp = createEmployee(name);
+	pEmp->pNext = pHead;
+	pHead = pEmp;
+
 }
 
 // Search through the list for a node with the given id.  

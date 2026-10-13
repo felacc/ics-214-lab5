@@ -46,4 +46,8 @@ Command getMenuCommand();
 void handleMenuInput(Employee*& pHead, Command command);
 
 Employee* createEmployee(std::string name);
+
+void addNewEmployee(Employee*& pHead, std::string name);
+
+void viewEmployees(Employee* phead);
 #endif
