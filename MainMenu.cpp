@@ -116,7 +116,13 @@ void handleMenuInput(Employee*& pHead, Command command)
 //			 of the list of employees.
 // return: nothing
 // TODO ------------------------------------------------------------------------
-//viewEmployees(Employee* pHead);
+//void viewEmployees(Employee* pHead)
+//{
+//	if (pHead == NULL)
+//	{
+//
+//	}
+//}
 
 
 // Create a new employee struct on the heap.
@@ -130,7 +136,13 @@ void handleMenuInput(Employee*& pHead, Command command)
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
 // TODO ------------------------------------------------------------------------
-//createEmployee();
+Employee* createEmployee(std::string name)
+{
+	static int eid{0}; // create employee eid static var - this line only runs once
+	Employee* emp = new Employee{ eid, name, nullptr }; // note - new keyword tells the computer to create the obj on the heap not the stack
+	eid++; // increment eid so it is unique for each employee
+	return emp;
+}
 
 
 // Create a new employee node, then add it to the list
