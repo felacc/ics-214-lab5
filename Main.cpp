@@ -1,10 +1,11 @@
 // This file is contains our main() routine which determines where our 
 // program execution begins and ends.
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
 #include <iostream>
 #include "MainMenu.h"
+#include "MemoryDebug.h"
 //#include "TestSuite.h"
 
 // Set up a pointer for tracking a linked list of Employees
@@ -28,6 +29,12 @@ int main()
 
 	// cleanup! - deallocate any employees in our linked list before setting the list to nullptr;
 	// TODO
+	while (pEmployees != nullptr)
+	{
+		Employee* pEmpToDelete = pEmployees;
+		pEmployees = pEmployees->pNext;
+		delete pEmpToDelete;
+	}
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 // See comments in MainMenu.h for general details on what each functin does.
 #include <iostream>
 #include "MainMenu.h"
+#include "MemoryDebug.h"
 
 
 // clear any characters from the (keyboard) input buffer
@@ -86,7 +87,7 @@ void handleMenuInput(Employee*& pHead, Command command)
 	case Command::removeEmployee:
 		std::cout << ">> Remove Employee:\n";
 		std::cout << "Enter id:";
-		//removeEmployee(pHead, getIntFromUser());
+		removeEmployee(pHead, getIntFromUser());
 		break;
 	case Command::exit:
 		std::cout << "Exiting\n";
@@ -149,7 +150,7 @@ void viewEmployees(Employee* pHead)
 Employee* createEmployee(std::string name)
 {
 	static int eid{0}; // create employee eid static var - this line only runs once
-	Employee* emp = new Employee{ eid, name, nullptr }; // note - new keyword tells the computer to create the obj on the heap not the stack
+	Employee* emp = DBG_NEW Employee{ eid, name, nullptr }; // note - new keyword tells the computer to create the obj on the heap not the stack
 	eid++; // increment eid so it is unique for each employee
 	return emp;
 }
@@ -183,7 +184,26 @@ void addNewEmployee(Employee*& pHead, std::string name)
 //           If node not found, pointers inside NodeInfo should both be nullptr.
 //           If node is first in the list, NodeInfo.pParent should be nullptr.
 // TODO ------------------------------------------------------------------------
-// getNodeInfo(Employee* pHead);
+NodeInfo getNodeInfo(Employee* pHead, int eId)
+{
+	Employee* pCurrent = pHead;
+	Employee* pParent = nullptr;
+	while (true)
+	{
+		if (pCurrent == nullptr)
+		{
+			break;
+		}
+
+		if (pCurrent->id == eId)
+		{
+			return NodeInfo{ pCurrent, pParent };
+		}
+		pParent = pCurrent;
+		pCurrent = pCurrent->pNext;
+	}
+	return NodeInfo{ nullptr, nullptr };
+}
 
 
 // Removes an employee node with the given id from the list.
@@ -201,6 +221,30 @@ void addNewEmployee(Employee*& pHead, std::string name)
 // - param 2: an int (the id of the employee we're searching for). 
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-//removeEmployee(Employee*& pHead);
+void removeEmployee(Employee*& pHead, int eid)
+{
+	NodeInfo target = getNodeInfo(pHead, eid);
+
+	if (target.pNode == nullptr && target.pParent == nullptr)
+	{
+		std::cout << "Error: employee id: " << eid << " not found\n";
+		return;
+	}
+
+	if (target.pParent == nullptr)
+	{
+		pHead = pHead->pNext;
+	}
+
+	if (target.pNode != nullptr && target.pParent != nullptr)
+	{
+		target.pParent->pNext = target.pNode->pNext;
+	}
+
+	delete target.pNode;
+	std::cout << "removed id: " << eid << '\n';
+
+}
+
 
 

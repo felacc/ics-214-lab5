@@ -50,4 +50,9 @@ Employee* createEmployee(std::string name);
 void addNewEmployee(Employee*& pHead, std::string name);
 
 void viewEmployees(Employee* phead);
+
+NodeInfo getNodeInfo(Employee* pHead, int eId);
+
+void removeEmployee(Employee*& pHead, int eid);
+
 #endif
