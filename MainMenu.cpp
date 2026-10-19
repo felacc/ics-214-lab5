@@ -153,7 +153,7 @@ void viewEmployees(Employee* pHead)
 // - param 1: a string - the employee's name.
 // - return: a pointer to the dynamically allocated Employee struct 
 // TODO ------------------------------------------------------------------------
-Employee* createEmployee(std::string name)
+Employee* createEmployee(const std::string& name)
 {
 	static int eid{0}; // create employee eid static var - this line only runs once
 	Employee* emp = DBG_NEW Employee{ eid, name, nullptr }; // note - new keyword tells the computer to create the obj on the heap not the stack
@@ -171,7 +171,7 @@ Employee* createEmployee(std::string name)
 // - param 2: a string - the employee's name.
 // - return: nothing
 // TODO ------------------------------------------------------------------------
-void addNewEmployee(Employee*& pHead, std::string name)
+void addNewEmployee(Employee*& pHead, const std::string& name)
 {
 	Employee* pEmp = createEmployee(name);
 	pEmp->pNext = pHead;
