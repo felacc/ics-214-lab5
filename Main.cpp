@@ -29,12 +29,6 @@ int main()
 
 	// cleanup! - deallocate any employees in our linked list before setting the list to nullptr;
 	// TODO
-	while (pEmployees != nullptr)
-	{
-		Employee* pEmpToDelete = pEmployees;
-		pEmployees = pEmployees->pNext;
-		delete pEmpToDelete;
-	}
-
+	removeAllEmployees(pEmployees);
 	return 0;
 }

@@ -36,6 +36,7 @@ void displayMainMenu()
 	std::cout << "1) View Employees\n";
 	std::cout << "2) Add Employee\n";
 	std::cout << "3) Remove Employee\n";
+	std::cout << "4) Remove All Employees\n";
 	std::cout << "0) Exit\n";
 	std::cout << "-------------\n";
 	std::cout << "Select:";
@@ -59,6 +60,7 @@ Command getMenuCommand() {
 	case 1: command = Command::viewEmployees; break;
 	case 2: command = Command::addEmployee; break;
 	case 3: command = Command::removeEmployee; break;
+	case 4: command = Command::removeAllEmployees; break;
 	case 0: command = Command::exit; break;
 	}
 	return command;
@@ -88,6 +90,10 @@ void handleMenuInput(Employee*& pHead, Command command)
 		std::cout << ">> Remove Employee:\n";
 		std::cout << "Enter id:";
 		removeEmployee(pHead, getIntFromUser());
+		break;
+	case Command::removeAllEmployees:
+		std::cout << ">> Removing all employees...";
+		removeAllEmployees(pHead);
 		break;
 	case Command::exit:
 		std::cout << "Exiting\n";
@@ -244,6 +250,18 @@ void removeEmployee(Employee*& pHead, int eid)
 	delete target.pNode;
 	std::cout << "removed id: " << eid << '\n';
 
+}
+
+void removeAllEmployees(Employee*& pHead)
+{
+	while (pHead != nullptr)
+	{
+		Employee* pEmpToDelete = pHead;
+		pHead = pHead->pNext;
+		delete pEmpToDelete;
+	}
+
+	std::cout << "all employees removed\n";
 }
 
 

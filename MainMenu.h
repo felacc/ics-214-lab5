@@ -10,7 +10,7 @@
 #include <string>
 
 // A command set of operations that can be used with our Menu.
-enum class Command{ viewEmployees, addEmployee, removeEmployee, exit, invalid };
+enum class Command{ viewEmployees, addEmployee, removeEmployee, removeAllEmployees, exit, invalid };
 
 // a struct to represent an Employee (each instance forms a node of a linked list
 // used to store employees.
@@ -55,4 +55,5 @@ NodeInfo getNodeInfo(Employee* pHead, int eId);
 
 void removeEmployee(Employee*& pHead, int eid);
 
+void removeAllEmployees(Employee*& pHead);
 #endif
