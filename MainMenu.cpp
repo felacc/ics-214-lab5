@@ -123,7 +123,7 @@ void handleMenuInput(Employee*& pHead, Command command)
 //			 of the list of employees.
 // return: nothing
 // TODO ------------------------------------------------------------------------
-void viewEmployees(Employee* pHead)
+void viewEmployees(const Employee* const pHead)
 {
 	if (pHead == nullptr)
 	{
@@ -131,7 +131,7 @@ void viewEmployees(Employee* pHead)
 	}
 	else
 	{
-		Employee* current = pHead;
+		const Employee* current = pHead;
 		while (current != nullptr)
 		{
 			std::cout << "[id: " << current->id << ", name: " << current->name << "]\n";
@@ -190,24 +190,23 @@ void addNewEmployee(Employee*& pHead, const std::string& name)
 //           If node not found, pointers inside NodeInfo should both be nullptr.
 //           If node is first in the list, NodeInfo.pParent should be nullptr.
 // TODO ------------------------------------------------------------------------
-NodeInfo getNodeInfo(Employee* pHead, int eId)
+NodeInfo getNodeInfo(Employee* const pHead, int eId)
 {
 	Employee* pCurrent = pHead;
 	Employee* pParent = nullptr;
-	while (true)
+	
+	while (pCurrent != nullptr)
 	{
-		if (pCurrent == nullptr)
-		{
-			break;
-		}
-
 		if (pCurrent->id == eId)
 		{
 			return NodeInfo{ pCurrent, pParent };
 		}
+
 		pParent = pCurrent;
 		pCurrent = pCurrent->pNext;
 	}
+
+	// Node was not found
 	return NodeInfo{ nullptr, nullptr };
 }
 
@@ -230,13 +229,14 @@ NodeInfo getNodeInfo(Employee* pHead, int eId)
 void removeEmployee(Employee*& pHead, int eid)
 {
 	NodeInfo target = getNodeInfo(pHead, eid);
-
+	
+	// if node not found
 	if (target.pNode == nullptr && target.pParent == nullptr)
 	{
 		std::cout << "Error: employee id: " << eid << " not found\n";
 		return;
 	}
-
+	
 	if (target.pParent == nullptr)
 	{
 		pHead = pHead->pNext;
