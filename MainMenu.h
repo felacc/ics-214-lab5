@@ -45,15 +45,56 @@ Command getMenuCommand();
 // - param 2: a Command (enum) representing the action to be taken.
 void handleMenuInput(Employee*& pHead, Command command);
 
+/// <summary>
+/// Output list of all employees to console. 
+/// </summary>
+/// <param name="pHead">
+/// A pointer to an Employee struct 
+/// (representing the front of the list of employees.)
+/// </param>
+void viewEmployees(const Employee* const pHead);
+
+/// <summary>
+/// Create new Employee struct on the heap.
+/// </summary>
+/// <param name="name">The employee's name.</param>
+/// <returns>A pointer to the dynamically allocated Employee struct.</returns>
 Employee* createEmployee(const std::string& name);
 
+/// <summary>
+/// Create a new employee node, then add it to the list.
+/// </summary>
+/// <param name="pHead">
+/// A pointer to the front of the list of employees.
+/// </param>
+/// <param name="name">The employee's name.</param>
 void addNewEmployee(Employee*& pHead, const std::string& name);
 
-void viewEmployees(const Employee* const phead);
-
+/// <summary>
+/// Search though the list for a node with the given id.
+/// </summary>
+/// <param name="pHead">
+/// A pointer to an Employee struct 
+/// (representing the front of the list of employees).
+/// </param>
+/// <param name="eId">The id of the employee to search for.</param>
+/// <returns>
+/// A NodeInfo struct containing the employee node and parent node.
+/// </returns>
 NodeInfo getNodeInfo(Employee* const pHead, int eId);
 
+/// <summary>
+/// Removes an employee node with the given id from the list.
+/// </summary>
+/// <param name="pHead">
+/// A pointer to the front of the list of employees.
+/// </param>
+/// <param name="eid">The id of the employee we are searching for.</param>
 void removeEmployee(Employee*& pHead, int eid);
 
+/// <summary>
+/// Removes all employees from the list.
+/// </summary>
+/// <param name="pHead">A pointer to the front of the list of employees.</param>
 void removeAllEmployees(Employee*& pHead);
 #endif

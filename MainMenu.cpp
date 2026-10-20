@@ -104,25 +104,6 @@ void handleMenuInput(Employee*& pHead, Command command)
 	}
 }
 
-// =============================================================================
-// Implement the functions below by following the given directions:	
-// As you implement these, you will have to add forward declarations for
-// each one in MainMenu.h
-// The function name has been given.
-// In some cases, the first parameter has been given.
-// =============================================================================
-
-// Output a list of all employees to the console.
-// If the list is empty (nullptr), print "empty list.\n" 
-// If it isn't empty, print each employee's id and name to the console:
-//    eg: [id: 5, name: Mary]\n
-// Create a pointer to traverse the list, point it at the front of the list,
-// process the node (output as shown above), and advance the pointer through the
-// list.  Repeat until you process the last node.
-// -param 1: (given) a pointer to an Employee struct (representing the front 
-//			 of the list of employees.
-// return: nothing
-// TODO ------------------------------------------------------------------------
 void viewEmployees(const Employee* const pHead)
 {
 	if (pHead == nullptr)
@@ -141,18 +122,6 @@ void viewEmployees(const Employee* const pHead)
 
 }
 
-
-// Create a new employee struct on the heap.
-// Use a static local variable to generate unique employee id's with (initialize
-// it and then increment it every time this function is called). 
-// Dynamically allocate memory for an employee struct from the heap.  
-//		 Initialize it with:
-//				-the unique id,
-//				-the name passed in as a paramter,
-//				-nullptr.
-// - param 1: a string - the employee's name.
-// - return: a pointer to the dynamically allocated Employee struct 
-// TODO ------------------------------------------------------------------------
 Employee* createEmployee(const std::string& name)
 {
 	static int eid{0}; // create employee eid static var - this line only runs once
@@ -161,16 +130,6 @@ Employee* createEmployee(const std::string& name)
 	return emp;
 }
 
-
-// Create a new employee node, then add it to the list
-// Use createEmployee() for node creation.
-// Insert the new employee node at the front of the linked list
-// It will help to draw this out!
-// - param 1: (given) a pointer to the front of the list of employees (passed
-//            by reference)
-// - param 2: a string - the employee's name.
-// - return: nothing
-// TODO ------------------------------------------------------------------------
 void addNewEmployee(Employee*& pHead, const std::string& name)
 {
 	Employee* pEmp = createEmployee(name);
@@ -179,17 +138,6 @@ void addNewEmployee(Employee*& pHead, const std::string& name)
 
 }
 
-// Search through the list for a node with the given id.  
-// Tip: Use a pointer to iterate through the linked list and another
-//      pointer to track the parent. 
-// - param 1: (given) a pointer to an Employee struct (representing the front  
-//			  of the list of employees
-// - param 2: an int (the id of the employee we're searching for). 
-// - return: a NodeInfo struct. It contains a pointer to the node that matches  
-//			 the id passed in and a pointer to that node's parent. 
-//           If node not found, pointers inside NodeInfo should both be nullptr.
-//           If node is first in the list, NodeInfo.pParent should be nullptr.
-// TODO ------------------------------------------------------------------------
 NodeInfo getNodeInfo(Employee* const pHead, int eId)
 {
 	Employee* pCurrent = pHead;
@@ -210,22 +158,6 @@ NodeInfo getNodeInfo(Employee* const pHead, int eId)
 	return NodeInfo{ nullptr, nullptr };
 }
 
-
-// Removes an employee node with the given id from the list.
-// Try to find a node with the given id (use getNodeInfo()). 
-//	1) If node not found, output "Error: employee id:# not found\n". 
-//  2) If node found, but parent is nullptr, the node is first in the list:
-//			-Set the pHead to point to the second node in the list.
-//			-Output "removed id:# \n" to the console
-//			-Deallocate the node (return it to the heap)
-//  3) otherwise the node was found and a parent exists
-//			-Set the parent's next pointer to the next pointer of the node we want to delete
-//			-Output a "removed id: #n" message to the console
-//			-Deallocate the node (return it to the heap).
-// - param 1: (given) a pointer to the front of the list of employees (passed by reference)
-// - param 2: an int (the id of the employee we're searching for). 
-// - return: nothing
-// TODO ------------------------------------------------------------------------
 void removeEmployee(Employee*& pHead, int eid)
 {
 	NodeInfo target = getNodeInfo(pHead, eid);
