@@ -68,7 +68,7 @@ Employee* createEmployee(const std::string& name);
 /// A pointer to the front of the list of employees.
 /// </param>
 /// <param name="name">The employee's name.</param>
-void addNewEmployee(Employee*& pHead, const std::string& name);
+void addNewEmployee(Employee*& pHead, const std::string& name, bool alhpabetical = true);
 
 /// <summary>
 /// Search though the list for a node with the given id.
@@ -97,4 +97,7 @@ void removeEmployee(Employee*& pHead, int eid);
 /// </summary>
 /// <param name="pHead">A pointer to the front of the list of employees.</param>
 void removeAllEmployees(Employee*& pHead);
+
+NodeInfo findAlphabeticalSpot(Employee* const pHead, const std::string& name);
+
 #endif

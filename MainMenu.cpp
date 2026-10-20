@@ -130,11 +130,32 @@ Employee* createEmployee(const std::string& name)
 	return emp;
 }
 
-void addNewEmployee(Employee*& pHead, const std::string& name)
+void addNewEmployee(Employee*& pHead, const std::string& name, bool alphabetical)
 {
 	Employee* pEmp = createEmployee(name);
-	pEmp->pNext = pHead;
-	pHead = pEmp;
+	
+	// If not alphabetical insert at front of list
+	if (!alphabetical)
+	{
+		pEmp->pNext = pHead;
+		pHead = pEmp;
+	}
+	else
+	{
+		// find nodes to place new employee between
+		NodeInfo parentAndChild = findAlphabeticalSpot(pHead, name);
+		
+		// if parent null, insert at front of list
+		if (parentAndChild.pParent == nullptr)
+		{
+			pEmp->pNext = pHead;
+			pHead = pEmp;
+			return;
+		}
+		
+		parentAndChild.pParent->pNext = pEmp;
+		pEmp->pNext = parentAndChild.pNode;
+	}
 
 }
 
@@ -156,6 +177,26 @@ NodeInfo getNodeInfo(Employee* const pHead, int eId)
 
 	// Node was not found
 	return NodeInfo{ nullptr, nullptr };
+}
+
+NodeInfo findAlphabeticalSpot(Employee* const pHead, const std::string& name)
+{
+	// check for empty list
+	if (pHead == nullptr)
+	{
+		return NodeInfo{ nullptr, nullptr };
+	}
+
+	Employee* pCurrent = pHead;
+	Employee* pParent = nullptr;
+
+	while (pCurrent != nullptr && pCurrent->name <= name)
+	{
+		pParent = pCurrent;
+		pCurrent = pCurrent->pNext;
+	}
+
+	return NodeInfo{ pCurrent, pParent };
 }
 
 void removeEmployee(Employee*& pHead, int eid)
